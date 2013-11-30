@@ -3,6 +3,7 @@
 #import "CEPlayer.h"
 #import "CEPlayerResponseHandler.h"
 #import "CEHackViewController.h"
+#import "CEBeaconsController.h"
 
 NSString *teamSelectionCommand = @"teamRed";
 
@@ -14,6 +15,7 @@ NSString *teamSelectionCommand = @"teamRed";
 
 @implementation CERootViewController {
     GKSession *_session;
+    CEBeaconsController *beaconsController;
 }
 
 - (CERootView *)rootView {
@@ -91,6 +93,7 @@ NSString *teamSelectionCommand = @"teamRed";
         case GKPeerStateConnected:
             self.player = [CEPlayer playerWithTeamId:CEPlayerBlue];
             self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerRed];
+            beaconsController = [[CEBeaconsController alloc] initWithPlayer:self.player];
 
             [self performSelector:@selector(setTeams) withObject:nil afterDelay:arc4random_uniform(10000) / 2000.f];
 
@@ -148,6 +151,8 @@ NSString *teamSelectionCommand = @"teamRed";
     } else {
         [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
     }
+    
+    beaconsController = [[CEBeaconsController alloc] initWithPlayer:self.player];
 }
 
 - (void)logMessage:(NSString *)message {
