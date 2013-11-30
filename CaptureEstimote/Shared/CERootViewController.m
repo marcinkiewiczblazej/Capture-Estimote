@@ -1,6 +1,15 @@
 #import "CERootViewController.h"
 #import "CERootView.h"
+#import "CEPlayer.h"
+#import "CEPlayerResponseHandler.h"
+#import "CEHackViewController.h"
 
+
+@interface CERootViewController ()
+@property(nonatomic, strong) CEPlayer *player;
+@property(nonatomic, strong) CEPlayer *otherPlayer;
+@property(nonatomic, strong) CEPlayerResponseHandler *playerResponseHandler;
+@end
 
 @implementation CERootViewController {
     GKSession *_session;
@@ -9,7 +18,6 @@
 - (CERootView *)rootView {
     return (CERootView *) self.view;
 }
-
 
 - (void)loadView {
     self.view = [[CERootView alloc] initWithFrame:CGRectZero];
@@ -24,6 +32,7 @@
 
 - (void)connect {
     if (_session == nil) {
+		self.player = [CEPlayer playerWithTeamId:CEPlayerBlue];
         NSString *sessionIDString = @"GKTSessionId";
         _session = [[GKSession alloc] initWithSessionID:sessionIDString displayName:nil sessionMode:GKSessionModePeer];
         _session.delegate = self;
@@ -72,6 +81,13 @@
             _session = nil;
             break;
         case GKPeerStateConnected:
+            if (self.player == nil) {
+                self.player = [CEPlayer playerWithTeamId:CEPlayerRed];
+                self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerBlue];
+            } else {
+                self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerRed];
+            }
+
             [session setDataReceiveHandler:self withContext:nil];
             self.rootView.sendButton.enabled = YES;
             break;
@@ -107,11 +123,26 @@
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
     NSString *receivedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [self logMessage:[NSString stringWithFormat:@"%@", receivedString]];
+    [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
 }
 
 - (void)logMessage:(NSString *)message {
     NSLog(@"%@", message);
     self.rootView.messagesTextView.text = [NSString stringWithFormat:@"%@\n\n%@", message, self.rootView.messagesTextView.text];
 }
+
+- (void)setPlayer:(CEPlayer *)player {
+    _player = player;
+    self.playerResponseHandler = [[CEPlayerResponseHandler alloc] initWithMyPlayer:player];
+    self.playerResponseHandler.handlerDelegate = self;
+}
+
+- (void)handler:(CEPlayerResponseHandler *)handler didDetectHackAttemptFromPlayer:(CEPlayer *)player {
+    CEHackViewController *controller = [[CEHackViewController alloc] init];
+    controller.controllerDelegate = self;
+
+    [self presentViewController:controller animated:YES completion:nil];
+}
+
 
 @end
