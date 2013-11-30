@@ -60,10 +60,8 @@
     }
 }
 
-- (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID {
-
+- (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
+    NSLog(@"%@", data);
 }
-
-
 
 @end
