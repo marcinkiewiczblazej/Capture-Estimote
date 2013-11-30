@@ -7,6 +7,10 @@
 #import "CERootView.h"
 
 
+@interface CERootView ()
+@property(nonatomic, readwrite) UIButton *fightButton;
+@end
+
 @implementation CERootView {
 
 }
@@ -30,6 +34,10 @@
         _messagesTextView = [[UITextView alloc] initWithFrame:CGRectZero];
         _messagesTextView.tintColor = [UIColor darkGrayColor];
         [self addSubview:_messagesTextView];
+        
+        self.fightButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.fightButton setTitle:@"Fight" forState:UIControlStateNormal];
+        [self addSubview:self.fightButton];
     }
 
     return self;
@@ -54,7 +62,11 @@
 
     y = CGRectGetMaxY(_inputTextField.frame) + Padding;
     [_messagesTextView sizeToFit];
-    _messagesTextView.frame = CGRectMake(Padding, y, LabelWidth, self.bounds.size.height - Padding - y);
+    _messagesTextView.frame = CGRectMake(Padding, y, LabelWidth, 50);
+
+    y = CGRectGetMaxY(_messagesTextView.frame) + Padding;
+    [self.fightButton sizeToFit];
+    self.fightButton.frame = CGRectMake(Padding, y, self.fightButton.frame.size.width, self.fightButton.frame.size.height);
 }
 
 @end

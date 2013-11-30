@@ -28,6 +28,14 @@
 
     [self.rootView.connectButton addTarget:self action:@selector(connect) forControlEvents:UIControlEventTouchUpInside];
     [self.rootView.sendButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+    [self.rootView.fightButton addTarget:self action:@selector(fight) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)fight {
+    CEHackViewController *controller = [[CEHackViewController alloc] init];
+    controller.controllerDelegate = self;
+
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)connect {
@@ -142,6 +150,10 @@
     controller.controllerDelegate = self;
 
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)hackViewControllerDidFinishHacking:(CEHackViewController *)hackViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 
