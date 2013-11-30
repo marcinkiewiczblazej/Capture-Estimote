@@ -10,7 +10,7 @@
 
 }
 
-- (instancetype)initWithPlayer:(CEPlayer *)player {
+- (instancetype)initWithMyPlayer:(CEPlayer *)player {
     self = [self init];
     if (self) {
         self.player = player;

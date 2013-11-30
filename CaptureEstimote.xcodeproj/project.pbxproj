@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		3865304A36BC3F2553C6D618 /* CEPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 386535195BA7D61FE9632E81 /* CEPlayer.m */; };
+		3865327887E9AE6398B6D33C /* CEHackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653A3709BCC63681149DDA /* CEHackView.m */; };
 		386534465CA42F0517112FC7 /* CEPlayerResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653CC89CD742DBE1298E9B /* CEPlayerResponseHandler.m */; };
 		3865382DC40B8B0C7A3CB9FC /* CEHackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865331778EEC45763CB515C /* CEHackViewController.m */; };
 		63D834C3480CF55C7CAB114F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D839434FA65B324E2969F7 /* Images.xcassets */; };
@@ -26,6 +27,8 @@
 /* Begin PBXFileReference section */
 		3865331778EEC45763CB515C /* CEHackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEHackViewController.m; sourceTree = "<group>"; };
 		386535195BA7D61FE9632E81 /* CEPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEPlayer.m; sourceTree = "<group>"; };
+		38653A3709BCC63681149DDA /* CEHackView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEHackView.m; sourceTree = "<group>"; };
+		38653B495C4AE057ADDC4F47 /* CEHackView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEHackView.h; sourceTree = "<group>"; };
 		38653BD4162BAC03231880F7 /* CEPlayerResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEPlayerResponseHandler.h; sourceTree = "<group>"; };
 		38653CC89CD742DBE1298E9B /* CEPlayerResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEPlayerResponseHandler.m; sourceTree = "<group>"; };
 		38653E405CC0A10CA488957D /* CEHackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEHackViewController.h; sourceTree = "<group>"; };
@@ -75,6 +78,8 @@
 			children = (
 				3865331778EEC45763CB515C /* CEHackViewController.m */,
 				38653E405CC0A10CA488957D /* CEHackViewController.h */,
+				38653A3709BCC63681149DDA /* CEHackView.m */,
+				38653B495C4AE057ADDC4F47 /* CEHackView.h */,
 			);
 			path = Hack;
 			sourceTree = "<group>";
@@ -263,6 +268,7 @@
 				386534465CA42F0517112FC7 /* CEPlayerResponseHandler.m in Sources */,
 				3865304A36BC3F2553C6D618 /* CEPlayer.m in Sources */,
 				3865382DC40B8B0C7A3CB9FC /* CEHackViewController.m in Sources */,
+				3865327887E9AE6398B6D33C /* CEHackView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

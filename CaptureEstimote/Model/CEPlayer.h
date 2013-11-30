@@ -2,7 +2,7 @@
 
 typedef enum {
     CEPlayerBlue = 1,
-    CEPlayerRed = 0x10000;
+    CEPlayerRed = 0x10
 } CEPlayerTeam;
 
 @interface CEPlayer : NSObject
@@ -12,4 +12,5 @@ typedef enum {
 + (CEPlayer *)playerWithTeamId:(CEPlayerTeam)teamId;
 
 - (BOOL)isPlayerSameTeam:(CEPlayer *)player;
+
 @end

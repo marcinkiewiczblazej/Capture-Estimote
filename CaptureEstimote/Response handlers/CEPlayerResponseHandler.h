@@ -11,6 +11,6 @@
 
 @property (nonatomic, weak) id<CEPlayerResponseHandlerDelegate> handlerDelegate;
 
-- (instancetype)initWithPlayer:(CEPlayer *)player;
+- (instancetype)initWithMyPlayer:(CEPlayer *)player;
 - (void)handleResponseData:(NSData *)responseData fromPlayer:(CEPlayer *)player;
 @end
