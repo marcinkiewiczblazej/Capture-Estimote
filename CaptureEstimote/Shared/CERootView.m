@@ -20,6 +20,7 @@
 
         _sendButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [_sendButton setTitle:@"Send" forState:UIControlStateNormal];
+        _sendButton.enabled = NO;
         [self addSubview:_sendButton];
 
         _inputTextField = [[UITextField alloc] initWithFrame:CGRectZero];
