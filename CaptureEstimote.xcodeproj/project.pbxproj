@@ -309,6 +309,7 @@
 					"$(inherited)",
 					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
 					/Users/neciu/Dev/appcode/CaptureEstimote/CaptureEstimote/External/EstimoteSDK,
+					"$(SRCROOT)/",
 				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
@@ -332,6 +333,7 @@
 					"$(inherited)",
 					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
 					/Users/neciu/Dev/appcode/CaptureEstimote/CaptureEstimote/External/EstimoteSDK,
+					"$(SRCROOT)/",
 				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
