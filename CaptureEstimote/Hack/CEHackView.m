@@ -65,7 +65,7 @@
 - (void)setNumberToType:(int)numberToType {
     _numberToType = numberToType;
 
-    self.label.text = [NSString stringWithFormat:@"%4d", numberToType];
+    self.label.text = [NSString stringWithFormat:@"%04d", numberToType];
     [self setNeedsLayout];
 }
 

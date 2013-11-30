@@ -226,7 +226,9 @@ NSInteger FLAG_ID = 1112;
     short ourBaseMajorId = [self ourBaseMajorId];
     for (ESTBeacon *beacon in immediateBeacons) {
         short beaconMajorId = beacon.ibeacon.major.shortValue;
-        if (beaconMajorId == ourBaseMajorId) return YES;
+        if (beaconMajorId == ourBaseMajorId) {
+            return YES;
+        }
     }
     return NO;
 }

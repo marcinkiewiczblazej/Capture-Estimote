@@ -202,11 +202,11 @@ NSString *teamSelectionCommand = @"teamRed";
 }
 
 - (void)beaconsControllerHasOpponentsInRange:(BOOL)has {
-    self.rootView.fightButton.enabled = has;
+    self.rootView.fightButton.enabled = has && !self.player.dead;
 }
 
 - (void)canRespawn:(BOOL)canRespawn {
-    self.rootView.respawnButton.enabled = YES;
+    self.rootView.respawnButton.enabled = canRespawn && self.player.dead;
 
 }
 
