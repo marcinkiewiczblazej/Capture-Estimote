@@ -12,5 +12,7 @@ typedef enum {
 + (CEPlayer *)playerWithTeamId:(CEPlayerTeam)teamId;
 
 - (BOOL)isPlayerSameTeam:(CEPlayer *)player;
+- (int)teamBeaconsMostSignificantNumber;
 
+- (int)opponentsBeaconsMostSignificantNumber;
 @end

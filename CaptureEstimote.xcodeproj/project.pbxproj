@@ -11,6 +11,7 @@
 		3865327887E9AE6398B6D33C /* CEHackView.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653A3709BCC63681149DDA /* CEHackView.m */; };
 		386534465CA42F0517112FC7 /* CEPlayerResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653CC89CD742DBE1298E9B /* CEPlayerResponseHandler.m */; };
 		3865382DC40B8B0C7A3CB9FC /* CEHackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865331778EEC45763CB515C /* CEHackViewController.m */; };
+		5151C5FF0D8B1FC6EC129BE3 /* CEBeaconsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 5151C0F448B737F742A2404B /* CEBeaconsController.m */; };
 		63D834C3480CF55C7CAB114F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D839434FA65B324E2969F7 /* Images.xcassets */; };
 		63D837E9EB567BF66BC9B1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D833CD2326DC28A477986E /* UIKit.framework */; };
 		63D83ACF254A4DE0F4BAF5DE /* CERootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D83B4DE7474FD7C33E1CB0 /* CERootView.m */; };
@@ -33,6 +34,8 @@
 		38653CC89CD742DBE1298E9B /* CEPlayerResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEPlayerResponseHandler.m; sourceTree = "<group>"; };
 		38653E405CC0A10CA488957D /* CEHackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEHackViewController.h; sourceTree = "<group>"; };
 		38653F2574D933F93F7DDB6A /* CEPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEPlayer.h; sourceTree = "<group>"; };
+		5151C0F448B737F742A2404B /* CEBeaconsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEBeaconsController.m; sourceTree = "<group>"; };
+		5151C9A9178EB708D8E6BDC2 /* CEBeaconsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEBeaconsController.h; sourceTree = "<group>"; };
 		63D8308AF5BDB5F2FEF2C9E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63D833CD2326DC28A477986E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63D8344919A2D23B28F57F59 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -154,6 +157,8 @@
 				63D835131B0712276DE5FDCE /* CERootViewController.h */,
 				63D83B4DE7474FD7C33E1CB0 /* CERootView.m */,
 				63D8399C792BE196B3C6DCD4 /* CERootView.h */,
+				5151C0F448B737F742A2404B /* CEBeaconsController.m */,
+				5151C9A9178EB708D8E6BDC2 /* CEBeaconsController.h */,
 			);
 			path = Shared;
 			sourceTree = "<group>";
@@ -269,6 +274,7 @@
 				3865304A36BC3F2553C6D618 /* CEPlayer.m in Sources */,
 				3865382DC40B8B0C7A3CB9FC /* CEHackViewController.m in Sources */,
 				3865327887E9AE6398B6D33C /* CEHackView.m in Sources */,
+				5151C5FF0D8B1FC6EC129BE3 /* CEBeaconsController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
