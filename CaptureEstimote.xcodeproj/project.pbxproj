@@ -307,9 +307,7 @@
 				INFOPLIST_FILE = "CaptureEstimote/CaptureEstimote-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
-					/Users/neciu/Dev/appcode/CaptureEstimote/CaptureEstimote/External/EstimoteSDK,
-					"$(SRCROOT)/",
+					"$(SRCROOT)/External/**",
 				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
@@ -331,9 +329,7 @@
 				INFOPLIST_FILE = "CaptureEstimote/CaptureEstimote-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
-					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
-					/Users/neciu/Dev/appcode/CaptureEstimote/CaptureEstimote/External/EstimoteSDK,
-					"$(SRCROOT)/",
+					"$(SRCROOT)/External/**",
 				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
