@@ -4,6 +4,7 @@
 #import "CEPlayerResponseHandler.h"
 #import "CEHackViewController.h"
 
+NSString *teamSelectionCommand = @"teamRed";
 
 @interface CERootViewController ()
 @property(nonatomic, strong) CEPlayer *player;
@@ -28,63 +29,142 @@
 
     [self.rootView.connectButton addTarget:self action:@selector(connect) forControlEvents:UIControlEventTouchUpInside];
     [self.rootView.sendButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
+    [self.rootView.fightButton addTarget:self action:@selector(fight) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)fight {
+    CEHackViewController *controller = [[CEHackViewController alloc] init];
+    controller.controllerDelegate = self;
+
+    [self presentViewController:controller animated:YES completion:nil];
 }
 
 - (void)connect {
     if (_session == nil) {
-        self.player = [CEPlayer playerWithTeamId:CEPlayerBlue];
-        GKPeerPickerController *peerPickerController = [[GKPeerPickerController alloc] init];
-        peerPickerController.delegate = self;
-        peerPickerController.connectionTypesMask = GKPeerPickerConnectionTypeNearby;
-        [peerPickerController show];
+        NSString *sessionIDString = @"GKTSessionId";
+        _session = [[GKSession alloc] initWithSessionID:sessionIDString displayName:nil sessionMode:GKSessionModePeer];
+        _session.delegate = self;
+        _session.available = YES;
+        _session.disconnectTimeout = 0;
     }
 }
 
 - (void)sendMessage {
-    NSData *textData = [self.rootView.inputTextField.text dataUsingEncoding:NSASCIIStringEncoding];
-    [_session sendDataToAllPeers:textData withDataMode:GKSendDataReliable error:nil];
+    NSData *textData = [self.rootView.inputTextField.text dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    [_session sendDataToAllPeers:textData withDataMode:GKSendDataReliable error:&error];
+    [self logMessage:[NSString stringWithFormat:@"ERROR IN SENDING MESSAGE: %@", error]];
 }
 
-- (GKSession *)peerPickerController:(GKPeerPickerController *)picker sessionForConnectionType:(GKPeerPickerConnectionType)type {
-    NSString *sessionIDString = @"GKTSessionId";
-    GKSession *session = [[GKSession alloc] initWithSessionID:sessionIDString displayName:nil sessionMode:GKSessionModePeer];
-    return session;
-}
-
-- (void)peerPickerController:(GKPeerPickerController *)picker didConnectPeer:(NSString *)peerID toSession:(GKSession *)session {
-    session.delegate = self;
-    _session = session;
-    picker.delegate = nil;
-    [picker dismiss];
-}
+#pragma mark GKSessionDelegate
 
 - (void)session:(GKSession *)session peer:(NSString *)peerID didChangeState:(GKPeerConnectionState)state {
-    if (state == GKPeerStateConnected) {
-        if (self.player == nil) {
-            self.player = [CEPlayer playerWithTeamId:CEPlayerRed];
-            self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerBlue];
-        } else {
-            self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerRed];
-        }
+    NSString *stateName;
+    switch (state) {
+        case GKPeerStateAvailable:
+            stateName = @"GKPeerStateAvailable";
+            break;
+        case GKPeerStateUnavailable:
+            stateName = @"GKPeerStateUnavailable";
+            break;
+        case GKPeerStateConnected:
+            stateName = @"GKPeerStateConnected";
+            break;
+        case GKPeerStateDisconnected:
+            stateName = @"GKPeerStateDisconnected";
+            break;
+        case GKPeerStateConnecting:
+            stateName = @"GKPeerStateConnecting";
+            break;
+    }
+    [self logMessage:[NSString stringWithFormat:@"Session: %@ with peer: %@ did change state: %@", nil, peerID, stateName]];
 
-        [session setDataReceiveHandler:self withContext:nil];
-        self.rootView.sendButton.enabled = YES;
-    } else {
-        self.rootView.sendButton.enabled = NO;
-        _session.delegate = nil;
-        _session = nil;
+    switch (state) {
+        case GKPeerStateAvailable:
+            [session connectToPeer:peerID withTimeout:0];
+            break;
+        case GKPeerStateUnavailable:
+            self.rootView.sendButton.enabled = NO;
+            _session.delegate = nil;
+            _session = nil;
+            break;
+        case GKPeerStateConnected:
+            self.player = [CEPlayer playerWithTeamId:CEPlayerBlue];
+            self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerRed];
+
+            [self performSelector:@selector(setTeams) withObject:nil afterDelay:arc4random_uniform(10000) / 2000.f];
+
+            [session setDataReceiveHandler:self withContext:nil];
+            self.rootView.sendButton.enabled = YES;
+            break;
+        case GKPeerStateDisconnected:
+            self.rootView.sendButton.enabled = NO;
+            _session.delegate = nil;
+            _session = nil;
+            break;
+        case GKPeerStateConnecting:
+            [session connectToPeer:peerID withTimeout:0];
+            break;
     }
 }
 
+- (void)setTeams {
+    [self sendMessage:teamSelectionCommand];
+}
+
+- (void)sendMessage:(NSString *)string {
+    NSData *textData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    [_session sendDataToAllPeers:textData withDataMode:GKSendDataReliable error:&error];
+    [self logMessage:[NSString stringWithFormat:@"ERROR IN SENDING MESSAGE: %@", error]];
+}
+
+- (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID {
+    [self logMessage:[NSString stringWithFormat:@"Session: %@ did recieve connection request from peer: %@", nil, peerID]];
+
+    NSError *error;
+    [session acceptConnectionFromPeer:peerID error:&error];
+    [self logMessage:[NSString stringWithFormat:@"Error in accepting session: %@", error]];
+
+    [_session connectToPeer:peerID withTimeout:0];
+}
+
+- (void)session:(GKSession *)session connectionWithPeerFailed:(NSString *)peerID withError:(NSError *)error {
+    [self logMessage:[NSString stringWithFormat:@"Session: %@ connection with peer failed: %@ with error: %@", nil, peerID, error]];
+}
+
+- (void)session:(GKSession *)session didFailWithError:(NSError *)error {
+    [self logMessage:[NSString stringWithFormat:@"Session: %@ did fail with error: %@", nil, error]];
+}
+
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
-    NSLog(@"%@", data);
-    [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
+    NSString *receivedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
+    [self logMessage:[NSString stringWithFormat:@"%@", receivedString]];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+    if ([receivedString isEqualToString:teamSelectionCommand]) {
+        self.player = [CEPlayer playerWithTeamId:CEPlayerRed];
+        self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerBlue];
+    } else {
+        [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
+    }
+}
+
+- (void)logMessage:(NSString *)message {
+    NSLog(@"%@", message);
+    self.rootView.messagesTextView.text = [NSString stringWithFormat:@"%@\n\n%@", message, self.rootView.messagesTextView.text];
 }
 
 - (void)setPlayer:(CEPlayer *)player {
     _player = player;
     self.playerResponseHandler = [[CEPlayerResponseHandler alloc] initWithMyPlayer:player];
     self.playerResponseHandler.handlerDelegate = self;
+
+    if (_player.playerId == 0) {
+        self.rootView.backgroundColor = [UIColor blueColor];
+    } else {
+        self.rootView.backgroundColor = [UIColor redColor];
+    }
 }
 
 - (void)handler:(CEPlayerResponseHandler *)handler didDetectHackAttemptFromPlayer:(CEPlayer *)player {
@@ -92,6 +172,10 @@
     controller.controllerDelegate = self;
 
     [self presentViewController:controller animated:YES completion:nil];
+}
+
+- (void)hackViewControllerDidFinishHacking:(CEHackViewController *)hackViewController {
+    [self dismissViewControllerAnimated:YES completion:nil];
 }
 
 

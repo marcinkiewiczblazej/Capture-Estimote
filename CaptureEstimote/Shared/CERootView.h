@@ -14,4 +14,5 @@
 @property(nonatomic, strong) UITextField *inputTextField;
 @property(nonatomic, strong) UITextView *messagesTextView;
 
+@property(nonatomic, readonly) UIButton *fightButton;
 @end

@@ -7,6 +7,8 @@
 @class CEPlayerResponseHandler;
 
 
-@interface CERootViewController : UIViewController <GKSessionDelegate, GKPeerPickerControllerDelegate, CEPlayerResponseHandlerDelegate, CEHackViewControllerDelegate>
+@interface CERootViewController : UIViewController <GKSessionDelegate, CEPlayerResponseHandlerDelegate, CEHackViewControllerDelegate>
+
+- (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context;
 
 @end
