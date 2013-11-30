@@ -16,6 +16,7 @@
 		63D83C3988812C0CD92E5224 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D8308AF5BDB5F2FEF2C9E6 /* Foundation.framework */; };
 		63D83F135E8AC753B8A39252 /* CERootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D83B93B032D12E735171CA /* CERootViewController.m */; };
 		63D83F67005A7759FBA3A084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D83BF3335B8A09BCFB5F7A /* main.m */; };
+		67986485184A118A0091B68B /* libEstimoteSDK7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67986484184A118A0091B68B /* libEstimoteSDK7.a */; };
 		C0AA5E6B184A01C90086CC39 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AA5E6A184A01C90086CC39 /* GameKit.framework */; };
 /* End PBXBuildFile section */
 
@@ -36,6 +37,11 @@
 		63D83BF7CD110532A5F6B016 /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
 		63D83C9788C74196A16DE0F4 /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		63D83D2BC6ADD01A1D579B79 /* CEAppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CEAppDelegate.m; sourceTree = "<group>"; };
+		67986480184A118A0091B68B /* ESTBeacon.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeacon.h; sourceTree = "<group>"; };
+		67986481184A118A0091B68B /* ESTBeaconDefinitions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconDefinitions.h; sourceTree = "<group>"; };
+		67986482184A118A0091B68B /* ESTBeaconManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconManager.h; sourceTree = "<group>"; };
+		67986483184A118A0091B68B /* ESTBeaconRegion.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ESTBeaconRegion.h; sourceTree = "<group>"; };
+		67986484184A118A0091B68B /* libEstimoteSDK7.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; path = libEstimoteSDK7.a; sourceTree = "<group>"; };
 		C0AA5E6A184A01C90086CC39 /* GameKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = GameKit.framework; path = System/Library/Frameworks/GameKit.framework; sourceTree = SDKROOT; };
 /* End PBXFileReference section */
 
@@ -47,6 +53,7 @@
 				C0AA5E6B184A01C90086CC39 /* GameKit.framework in Frameworks */,
 				63D83C3988812C0CD92E5224 /* Foundation.framework in Frameworks */,
 				63D83BA1C86E071AE51C65B1 /* CoreGraphics.framework in Frameworks */,
+				67986485184A118A0091B68B /* libEstimoteSDK7.a in Frameworks */,
 				63D837E9EB567BF66BC9B1B1 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -77,6 +84,7 @@
 		63D839C30A1C4759C2AFF8A7 /* CaptureEstimote */ = {
 			isa = PBXGroup;
 			children = (
+				6798647D184A118A0091B68B /* External */,
 				63D83FF73A640AE373B37BF1 /* Supporting Files */,
 				63D8386898D735E10A7359CA /* CEAppDelegate.h */,
 				63D83D2BC6ADD01A1D579B79 /* CEAppDelegate.m */,
@@ -115,6 +123,34 @@
 				63D83A4170C443D2C8F6F1F2 /* CaptureEstimote-Prefix.pch */,
 			);
 			name = "Supporting Files";
+			sourceTree = "<group>";
+		};
+		6798647D184A118A0091B68B /* External */ = {
+			isa = PBXGroup;
+			children = (
+				6798647E184A118A0091B68B /* EstimoteSDK */,
+			);
+			path = External;
+			sourceTree = "<group>";
+		};
+		6798647E184A118A0091B68B /* EstimoteSDK */ = {
+			isa = PBXGroup;
+			children = (
+				6798647F184A118A0091B68B /* Headers */,
+				67986484184A118A0091B68B /* libEstimoteSDK7.a */,
+			);
+			path = EstimoteSDK;
+			sourceTree = "<group>";
+		};
+		6798647F184A118A0091B68B /* Headers */ = {
+			isa = PBXGroup;
+			children = (
+				67986480184A118A0091B68B /* ESTBeacon.h */,
+				67986481184A118A0091B68B /* ESTBeaconDefinitions.h */,
+				67986482184A118A0091B68B /* ESTBeaconManager.h */,
+				67986483184A118A0091B68B /* ESTBeaconRegion.h */,
+			);
+			path = Headers;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -210,6 +246,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CaptureEstimote/CaptureEstimote-Prefix.pch";
 				INFOPLIST_FILE = "CaptureEstimote/CaptureEstimote-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
+				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
 			};
@@ -223,6 +263,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CaptureEstimote/CaptureEstimote-Prefix.pch";
 				INFOPLIST_FILE = "CaptureEstimote/CaptureEstimote-Info.plist";
+				LIBRARY_SEARCH_PATHS = (
+					"$(inherited)",
+					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
+				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
 			};
