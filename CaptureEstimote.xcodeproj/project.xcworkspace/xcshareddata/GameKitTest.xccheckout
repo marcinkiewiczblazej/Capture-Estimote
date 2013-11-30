@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>10D9535D-87AC-4FC6-9C0B-B0E0EC7141DB</string>
+	<key>IDESourceControlProjectName</key>
+	<string>GameKitTest</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>5EEAD947-C733-4FAE-9DE9-D0414581A64B</key>
+		<string>ssh://github.com/marcinkiewiczblazej/Capture-Estimote.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>GameKitTest.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>5EEAD947-C733-4FAE-9DE9-D0414581A64B</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/marcinkiewiczblazej/Capture-Estimote.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>5EEAD947-C733-4FAE-9DE9-D0414581A64B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>5EEAD947-C733-4FAE-9DE9-D0414581A64B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>CaptureEstimote</string>
+		</dict>
+	</array>
+</dict>
+</plist>
