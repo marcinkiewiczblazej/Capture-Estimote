@@ -7,6 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3865304A36BC3F2553C6D618 /* CEPlayer.m in Sources */ = {isa = PBXBuildFile; fileRef = 386535195BA7D61FE9632E81 /* CEPlayer.m */; };
+		386534465CA42F0517112FC7 /* CEPlayerResponseHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 38653CC89CD742DBE1298E9B /* CEPlayerResponseHandler.m */; };
+		3865382DC40B8B0C7A3CB9FC /* CEHackViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3865331778EEC45763CB515C /* CEHackViewController.m */; };
 		63D834C3480CF55C7CAB114F /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 63D839434FA65B324E2969F7 /* Images.xcassets */; };
 		63D837E9EB567BF66BC9B1B1 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D833CD2326DC28A477986E /* UIKit.framework */; };
 		63D83ACF254A4DE0F4BAF5DE /* CERootView.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D83B4DE7474FD7C33E1CB0 /* CERootView.m */; };
@@ -21,6 +24,12 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		3865331778EEC45763CB515C /* CEHackViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEHackViewController.m; sourceTree = "<group>"; };
+		386535195BA7D61FE9632E81 /* CEPlayer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEPlayer.m; sourceTree = "<group>"; };
+		38653BD4162BAC03231880F7 /* CEPlayerResponseHandler.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEPlayerResponseHandler.h; sourceTree = "<group>"; };
+		38653CC89CD742DBE1298E9B /* CEPlayerResponseHandler.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CEPlayerResponseHandler.m; sourceTree = "<group>"; };
+		38653E405CC0A10CA488957D /* CEHackViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEHackViewController.h; sourceTree = "<group>"; };
+		38653F2574D933F93F7DDB6A /* CEPlayer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CEPlayer.h; sourceTree = "<group>"; };
 		63D8308AF5BDB5F2FEF2C9E6 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
 		63D833CD2326DC28A477986E /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		63D8344919A2D23B28F57F59 /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -61,6 +70,33 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		386533B40E8CEE3538935D94 /* Hack */ = {
+			isa = PBXGroup;
+			children = (
+				3865331778EEC45763CB515C /* CEHackViewController.m */,
+				38653E405CC0A10CA488957D /* CEHackViewController.h */,
+			);
+			path = Hack;
+			sourceTree = "<group>";
+		};
+		386538B079EEEC28C52C357D /* Model */ = {
+			isa = PBXGroup;
+			children = (
+				386535195BA7D61FE9632E81 /* CEPlayer.m */,
+				38653F2574D933F93F7DDB6A /* CEPlayer.h */,
+			);
+			path = Model;
+			sourceTree = "<group>";
+		};
+		38653C04D0F08868691F3A1A /* Response handlers */ = {
+			isa = PBXGroup;
+			children = (
+				38653CC89CD742DBE1298E9B /* CEPlayerResponseHandler.m */,
+				38653BD4162BAC03231880F7 /* CEPlayerResponseHandler.h */,
+			);
+			path = "Response handlers";
+			sourceTree = "<group>";
+		};
 		63D832160305A3F520CC2A87 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
@@ -90,6 +126,9 @@
 				63D83D2BC6ADD01A1D579B79 /* CEAppDelegate.m */,
 				63D839434FA65B324E2969F7 /* Images.xcassets */,
 				63D83ADDBB9BA182F3D39035 /* Shared */,
+				38653C04D0F08868691F3A1A /* Response handlers */,
+				386538B079EEEC28C52C357D /* Model */,
+				386533B40E8CEE3538935D94 /* Hack */,
 			);
 			path = CaptureEstimote;
 			sourceTree = "<group>";
@@ -221,6 +260,9 @@
 				63D83AE09FE475F133AF8F3A /* CEAppDelegate.m in Sources */,
 				63D83F135E8AC753B8A39252 /* CERootViewController.m in Sources */,
 				63D83ACF254A4DE0F4BAF5DE /* CERootView.m in Sources */,
+				386534465CA42F0517112FC7 /* CEPlayerResponseHandler.m in Sources */,
+				3865304A36BC3F2553C6D618 /* CEPlayer.m in Sources */,
+				3865382DC40B8B0C7A3CB9FC /* CEHackViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

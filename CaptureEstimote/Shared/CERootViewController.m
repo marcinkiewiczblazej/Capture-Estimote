@@ -10,7 +10,6 @@
     return (CERootView *) self.view;
 }
 
-
 - (void)loadView {
     self.view = [[CERootView alloc] initWithFrame:CGRectZero];
 }
