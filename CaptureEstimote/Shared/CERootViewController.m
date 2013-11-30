@@ -4,6 +4,7 @@
 #import "CEPlayerResponseHandler.h"
 #import "CEHackViewController.h"
 
+NSString *teamSelectionCommand = @"teamRed";
 
 @interface CERootViewController ()
 @property(nonatomic, strong) CEPlayer *player;
@@ -40,7 +41,6 @@
 
 - (void)connect {
     if (_session == nil) {
-		self.player = [CEPlayer playerWithTeamId:CEPlayerBlue];
         NSString *sessionIDString = @"GKTSessionId";
         _session = [[GKSession alloc] initWithSessionID:sessionIDString displayName:nil sessionMode:GKSessionModePeer];
         _session.delegate = self;
@@ -89,12 +89,10 @@
             _session = nil;
             break;
         case GKPeerStateConnected:
-            if (self.player == nil) {
-                self.player = [CEPlayer playerWithTeamId:CEPlayerRed];
-                self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerBlue];
-            } else {
-                self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerRed];
-            }
+            self.player = [CEPlayer playerWithTeamId:CEPlayerBlue];
+            self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerRed];
+
+            [self performSelector:@selector(setTeams) withObject:nil afterDelay:arc4random_uniform(10000) / 2000.f];
 
             [session setDataReceiveHandler:self withContext:nil];
             self.rootView.sendButton.enabled = YES;
@@ -108,6 +106,17 @@
             [session connectToPeer:peerID withTimeout:0];
             break;
     }
+}
+
+- (void)setTeams {
+    [self sendMessage:teamSelectionCommand];
+}
+
+- (void)sendMessage:(NSString *)string {
+    NSData *textData = [string dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error;
+    [_session sendDataToAllPeers:textData withDataMode:GKSendDataReliable error:&error];
+    [self logMessage:[NSString stringWithFormat:@"ERROR IN SENDING MESSAGE: %@", error]];
 }
 
 - (void)session:(GKSession *)session didReceiveConnectionRequestFromPeer:(NSString *)peerID {
@@ -131,7 +140,14 @@
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
     NSString *receivedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
     [self logMessage:[NSString stringWithFormat:@"%@", receivedString]];
-    [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
+    [NSObject cancelPreviousPerformRequestsWithTarget:self];
+
+    if ([receivedString isEqualToString:teamSelectionCommand]) {
+        self.player = [CEPlayer playerWithTeamId:CEPlayerRed];
+        self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerBlue];
+    } else {
+        [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
+    }
 }
 
 - (void)logMessage:(NSString *)message {
@@ -143,6 +159,12 @@
     _player = player;
     self.playerResponseHandler = [[CEPlayerResponseHandler alloc] initWithMyPlayer:player];
     self.playerResponseHandler.handlerDelegate = self;
+
+    if (_player.playerId == 0) {
+        self.rootView.backgroundColor = [UIColor blueColor];
+    } else {
+        self.rootView.backgroundColor = [UIColor redColor];
+    }
 }
 
 - (void)handler:(CEPlayerResponseHandler *)handler didDetectHackAttemptFromPlayer:(CEPlayer *)player {

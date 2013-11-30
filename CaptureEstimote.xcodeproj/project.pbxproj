@@ -20,8 +20,8 @@
 		63D83C3988812C0CD92E5224 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 63D8308AF5BDB5F2FEF2C9E6 /* Foundation.framework */; };
 		63D83F135E8AC753B8A39252 /* CERootViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D83B93B032D12E735171CA /* CERootViewController.m */; };
 		63D83F67005A7759FBA3A084 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 63D83BF3335B8A09BCFB5F7A /* main.m */; };
-		67986485184A118A0091B68B /* libEstimoteSDK7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67986484184A118A0091B68B /* libEstimoteSDK7.a */; };
 		C0AA5E6B184A01C90086CC39 /* GameKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C0AA5E6A184A01C90086CC39 /* GameKit.framework */; };
+		C0AA5E6C184A2FAE0086CC39 /* libEstimoteSDK7.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 67986484184A118A0091B68B /* libEstimoteSDK7.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -62,10 +62,10 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				C0AA5E6C184A2FAE0086CC39 /* libEstimoteSDK7.a in Frameworks */,
 				C0AA5E6B184A01C90086CC39 /* GameKit.framework in Frameworks */,
 				63D83C3988812C0CD92E5224 /* Foundation.framework in Frameworks */,
 				63D83BA1C86E071AE51C65B1 /* CoreGraphics.framework in Frameworks */,
-				67986485184A118A0091B68B /* libEstimoteSDK7.a in Frameworks */,
 				63D837E9EB567BF66BC9B1B1 /* UIKit.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -293,10 +293,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CaptureEstimote/CaptureEstimote-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/**",
+				);
 				INFOPLIST_FILE = "CaptureEstimote/CaptureEstimote-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
+					/Users/neciu/Dev/appcode/CaptureEstimote/CaptureEstimote/External/EstimoteSDK,
 				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
@@ -310,10 +316,16 @@
 				ASSETCATALOG_COMPILER_LAUNCHIMAGE_NAME = LaunchImage;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CaptureEstimote/CaptureEstimote-Prefix.pch";
+				HEADER_SEARCH_PATHS = (
+					"$(inherited)",
+					/Applications/Xcode.app/Contents/Developer/Toolchains/XcodeDefault.xctoolchain/usr/include,
+					"$(SRCROOT)/**",
+				);
 				INFOPLIST_FILE = "CaptureEstimote/CaptureEstimote-Info.plist";
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"/Users/blazejmarcinkiewicz/projects/Capture-Estimote/CaptureEstimote/External/EstimoteSDK",
+					/Users/neciu/Dev/appcode/CaptureEstimote/CaptureEstimote/External/EstimoteSDK,
 				);
 				PRODUCT_NAME = CaptureEstimote;
 				WRAPPER_EXTENSION = app;
