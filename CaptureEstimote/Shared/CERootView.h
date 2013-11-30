@@ -15,4 +15,5 @@
 @property(nonatomic, strong) UITextView *messagesTextView;
 
 @property(nonatomic, readonly) UIButton *fightButton;
+@property(nonatomic, strong) UIButton *respawnButton;
 @end

@@ -37,6 +37,12 @@ NSString *teamSelectionCommand = @"teamRed";
     [self.rootView.connectButton addTarget:self action:@selector(connect) forControlEvents:UIControlEventTouchUpInside];
     [self.rootView.sendButton addTarget:self action:@selector(sendMessage) forControlEvents:UIControlEventTouchUpInside];
     [self.rootView.fightButton addTarget:self action:@selector(fight) forControlEvents:UIControlEventTouchUpInside];
+    [self.rootView.respawnButton addTarget:self action:@selector(respawn) forControlEvents:UIControlEventTouchUpInside];
+}
+
+- (void)respawn {
+    self.player.dead = NO;
+    self.rootView.fightButton.enabled = YES;
 }
 
 - (void)fight {
@@ -99,6 +105,7 @@ NSString *teamSelectionCommand = @"teamRed";
             self.player = [CEPlayer playerWithTeamId:CEPlayerBlue];
             self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerRed];
             beaconsController = [[CEBeaconsController alloc] initWithPlayer:self.player];
+            beaconsController.delegate = self;
 
             [self performSelector:@selector(setTeams) withObject:nil afterDelay:arc4random_uniform(10000) / 2000.f];
 
@@ -155,12 +162,14 @@ NSString *teamSelectionCommand = @"teamRed";
         self.player = [CEPlayer playerWithTeamId:CEPlayerRed];
         self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerBlue];
     } else if ([receivedString isEqualToString:KillPlayerMessageText]) {
-
+        self.player.dead = YES;
+        self.rootView.fightButton.enabled = NO;
     } else {
         [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
     }
     
     beaconsController = [[CEBeaconsController alloc] initWithPlayer:self.player];
+    beaconsController.delegate = self;
 }
 
 - (void)logMessage:(NSString *)message {
@@ -173,7 +182,7 @@ NSString *teamSelectionCommand = @"teamRed";
     self.playerResponseHandler = [[CEPlayerResponseHandler alloc] initWithMyPlayer:player];
     self.playerResponseHandler.handlerDelegate = self;
 
-    if (_player.playerId == 0) {
+    if (_player.playerId == 1) {
         self.rootView.backgroundColor = [UIColor blueColor];
     } else {
         self.rootView.backgroundColor = [UIColor redColor];
@@ -191,5 +200,15 @@ NSString *teamSelectionCommand = @"teamRed";
     [self dismissViewControllerAnimated:YES completion:nil];
     [self sendMessage:KillPlayerMessageText];
 }
+
+- (void)beaconsControllerHasOpponentsInRange:(BOOL)has {
+    self.rootView.fightButton.enabled = has;
+}
+
+- (void)canRespawn:(BOOL)canRespawn {
+    self.rootView.respawnButton.enabled = YES;
+
+}
+
 
 @end

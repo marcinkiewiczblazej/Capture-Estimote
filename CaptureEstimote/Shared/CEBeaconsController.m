@@ -13,6 +13,7 @@
     int opponentsSignificantBeaconNumber;
     int playerId;
     NSMutableDictionary *changingBeacons;
+    NSMutableArray *playersInRange;
 }
 
 NSInteger PLAYER_ID = 1110;
@@ -25,6 +26,7 @@ NSInteger FLAG_ID = 1112;
         immediateBeacons = [NSMutableArray new];
         nearBeacons = [NSMutableArray new];
         farBeacons = [NSMutableArray new];
+        playersInRange = [NSMutableArray new];
         changingBeacons = [NSMutableDictionary new];
 
         mostSignificantBeaconNumber = player.teamBeaconsMostSignificantNumber;
@@ -37,13 +39,14 @@ NSInteger FLAG_ID = 1112;
         ESTBeaconRegion *region = [[ESTBeaconRegion alloc] initRegionWithIdentifier:@"EstimoteSampleRegion"];
         [beaconManager startRangingBeaconsInRegion:region];
 
-        [beaconManager startAdvertisingWithMajor:(ESTBeaconMajorValue) (10000 * mostSignificantBeaconNumber + PLAYER_ID) withMinor:0 withIdentifier:@"EstimoteSampleRegion"];
+        [beaconManager startAdvertisingWithMajor:(ESTBeaconMajorValue) (10000 * mostSignificantBeaconNumber + PLAYER_ID) withMinor:(ESTBeaconMinorValue) playerId withIdentifier:@"EstimoteSampleRegion"];
     }
 
     return self;
 }
 
 - (void)beaconManager:(ESTBeaconManager *)manager didRangeBeacons:(NSArray *)beacons inRegion:(ESTBeaconRegion *)region {
+    NSLog(@"Ping");
     [immediateBeacons removeAllObjects];
     [nearBeacons removeAllObjects];
     [farBeacons removeAllObjects];
@@ -58,6 +61,7 @@ NSInteger FLAG_ID = 1112;
                 if (flagsToChange.count > 0) {
                     [self tagFlags:flagsToChange state:YES];
                 }
+                [self otherPlayerNear];
                 break;
             }
             case CLProximityNear:
@@ -69,10 +73,35 @@ NSInteger FLAG_ID = 1112;
                 if (flagsToChange.count > 0) {
                     [self tagFlags:flagsToChange state:NO];
                 }
+                [self otherPlayerFar];
                 break;
         }
+        [_delegate beaconsControllerHasOpponentsInRange:playersInRange.count > 0];
+        [_delegate canRespawn:[self canSpawnNow]];
     }
 
+}
+
+- (NSString *)otherPlayerNear {
+    short opponentsPlayerMajorId = [self opponentsPlayerMajorId];
+    for (ESTBeacon *beacon in immediateBeacons) {
+        if (beacon.ibeacon.major.shortValue == opponentsPlayerMajorId) {
+            [playersInRange addObject:beacon.ibeacon.minor];
+            return @"APPROACHED";
+        }
+    }
+    return nil;
+}
+
+- (NSString *)otherPlayerFar {
+    short opponentsPlayerMajorId = [self opponentsPlayerMajorId];
+    for (ESTBeacon *beacon in farBeacons) {
+        if (beacon.ibeacon.major.shortValue == opponentsPlayerMajorId) {
+            [playersInRange removeObject:beacon.ibeacon.minor];
+            return @"FAR";
+        }
+    }
+    return nil;
 }
 
 - (short)ourBaseMajorId {
@@ -89,6 +118,14 @@ NSInteger FLAG_ID = 1112;
 
 - (short)opponentsFlagMajorId {
     return (short) ([self getOpponentsPrefix] + FLAG_ID);
+}
+
+- (short)ourPlayerMajorId {
+    return (short) ([self getTeamPrefix] + PLAYER_ID);
+}
+
+- (short)opponentsPlayerMajorId {
+    return (short) ([self getOpponentsPrefix] + PLAYER_ID);
 }
 
 - (int)getOpponentsPrefix {

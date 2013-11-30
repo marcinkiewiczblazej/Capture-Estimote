@@ -9,6 +9,8 @@ typedef enum {
 @property (nonatomic) int playerId;
 @property (nonatomic, copy) NSString *peerId;
 
+@property(nonatomic) BOOL dead;
+
 + (CEPlayer *)playerWithTeamId:(CEPlayerTeam)teamId;
 
 - (BOOL)isPlayerSameTeam:(CEPlayer *)player;

@@ -38,6 +38,10 @@
         self.fightButton = [UIButton buttonWithType:UIButtonTypeSystem];
         [self.fightButton setTitle:@"Fight" forState:UIControlStateNormal];
         [self addSubview:self.fightButton];
+
+        self.respawnButton = [UIButton buttonWithType:UIButtonTypeSystem];
+        [self.respawnButton setTitle:@"Respawn" forState:UIControlStateNormal];
+        [self addSubview:self.respawnButton];
     }
 
     return self;
@@ -58,6 +62,10 @@
 
     [self.fightButton sizeToFit];
     self.fightButton.frame = CGRectMake(self.bounds.size.width - Padding - self.fightButton.frame.size.width, y, self.fightButton.frame.size.width, self.fightButton.frame.size.height);
+
+    [self.respawnButton sizeToFit];
+    self.respawnButton.frame = CGRectMake(self.bounds.size.width - Padding - self.respawnButton.frame.size.width, y + self.fightButton.frame.size.height, self.respawnButton.frame.size.width, self.respawnButton.frame.size.height);
+
 
     y = CGRectGetMaxY(_sendButton.frame) + Padding;
     [_inputTextField sizeToFit];
