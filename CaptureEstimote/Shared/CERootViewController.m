@@ -5,13 +5,18 @@
 #import "CEHackViewController.h"
 #import "CEBeaconsController.h"
 
+
+static NSString *const KillPlayerMessageText = @"UR DEAD MAN!";
 NSString *teamSelectionCommand = @"teamRed";
 
+
 @interface CERootViewController ()
+
 @property(nonatomic, strong) CEPlayer *player;
 @property(nonatomic, strong) CEPlayer *otherPlayer;
 @property(nonatomic, strong) CEPlayerResponseHandler *playerResponseHandler;
 @end
+
 
 @implementation CERootViewController {
     GKSession *_session;
@@ -116,6 +121,7 @@ NSString *teamSelectionCommand = @"teamRed";
 }
 
 - (void)sendMessage:(NSString *)string {
+    [self logMessage:[NSString stringWithFormat:@">>> %@", string]];
     NSData *textData = [string dataUsingEncoding:NSUTF8StringEncoding];
     NSError *error;
     [_session sendDataToAllPeers:textData withDataMode:GKSendDataReliable error:&error];
@@ -142,12 +148,14 @@ NSString *teamSelectionCommand = @"teamRed";
 
 - (void)receiveData:(NSData *)data fromPeer:(NSString *)peer inSession:(GKSession *)session context:(void *)context {
     NSString *receivedString = [[NSString alloc] initWithData:data encoding:NSUTF8StringEncoding];
-    [self logMessage:[NSString stringWithFormat:@"%@", receivedString]];
+    [self logMessage:[NSString stringWithFormat:@"<<< %@", receivedString]];
     [NSObject cancelPreviousPerformRequestsWithTarget:self];
 
     if ([receivedString isEqualToString:teamSelectionCommand]) {
         self.player = [CEPlayer playerWithTeamId:CEPlayerRed];
         self.otherPlayer = [CEPlayer playerWithTeamId:CEPlayerBlue];
+    } else if ([receivedString isEqualToString:KillPlayerMessageText]) {
+
     } else {
         [self.playerResponseHandler handleResponseData:data fromPlayer:self.otherPlayer];
     }
@@ -181,7 +189,7 @@ NSString *teamSelectionCommand = @"teamRed";
 
 - (void)hackViewControllerDidFinishHacking:(CEHackViewController *)hackViewController {
     [self dismissViewControllerAnimated:YES completion:nil];
+    [self sendMessage:KillPlayerMessageText];
 }
-
 
 @end

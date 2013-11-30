@@ -56,17 +56,17 @@
     [_sendButton sizeToFit];
     _sendButton.frame = CGRectMake(Padding, y, _sendButton.bounds.size.width, _sendButton.bounds.size.height);
 
+    [self.fightButton sizeToFit];
+    self.fightButton.frame = CGRectMake(self.bounds.size.width - Padding - self.fightButton.frame.size.width, y, self.fightButton.frame.size.width, self.fightButton.frame.size.height);
+
     y = CGRectGetMaxY(_sendButton.frame) + Padding;
     [_inputTextField sizeToFit];
     _inputTextField.frame = CGRectMake(Padding, y, LabelWidth, _inputTextField.bounds.size.height);
 
     y = CGRectGetMaxY(_inputTextField.frame) + Padding;
     [_messagesTextView sizeToFit];
-    _messagesTextView.frame = CGRectMake(Padding, y, LabelWidth, 50);
+    _messagesTextView.frame = CGRectMake(Padding, y, LabelWidth, self.bounds.size.height - Padding - y);
 
-    y = CGRectGetMaxY(_messagesTextView.frame) + Padding;
-    [self.fightButton sizeToFit];
-    self.fightButton.frame = CGRectMake(Padding, y, self.fightButton.frame.size.width, self.fightButton.frame.size.height);
 }
 
 @end
